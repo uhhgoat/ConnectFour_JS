@@ -1,0 +1,467 @@
+<!DOCTYPE HTML>
+<!--Matyas Fenyves-->
+<html>
+	<head>
+		<title>Connect Four</title>
+		<style>
+			
+			img
+			{
+				height:77px ;
+				width:77px ;
+				border:transparent ;
+				padding-top: 10px ;
+			}
+			table
+			{
+				margin-left:auto ;
+				margin-right:auto ;
+				border-collapse: collapse;
+				border-spacing: 0px 0px;
+				width:735px;
+				height:700px ;
+				
+			}
+			
+			td
+			{
+				vertical-align:center ;
+				border-collapse: collapse;
+				border-spacing: 0px 0px;
+			}
+			td.board
+			{
+				background-image :url('board-piece.png') ;
+				background-repeat: no-repeat;
+				
+			}
+			button
+			{
+				text-align:center ;
+				width:150px ;
+				height: 50px ;
+				background-color:#2B0016;
+				border-color:#5C005C;
+				border-radius: 12px;
+				color:white;
+			}
+			body
+			{
+				text-align:center ;
+				
+			}
+			img#background
+			{
+				position:fixed;
+				top:0px;
+				left:0px;
+				width:100%;
+				height:100%;
+				z-index:-1;
+			}
+		</style>
+		<script>
+			
+			function hoverArrows(arrow)
+			{
+				if(turn == 0)
+				{
+					arrow.src = REDARROW ;
+				}
+				else
+				{
+					arrow.src = BLACKARROW ;
+				}
+			}
+			function clickArrows(arrow)
+			{
+				if(turn == 0)
+				{
+					arrow.src = REDARROW ;
+				}
+				else
+				{
+					arrow.src = BLACKARROW ;
+				}
+			}
+			function offArrows(arrow)
+			{
+				arrow.src = "arrow-line.png" ;
+			}
+			
+			function induction()
+			{
+				turn = 0 ;
+				REDARROW = "Down-arrow-red.png"
+				BLACKARROW = "Down-arrow-black.png"
+				RED = "red-piece.png" ;
+				BLACK = "black-piece.png" ;
+				theWin = "" ;
+				WIN = "win" ;
+				rowIdx0 = 5 ;
+				rowIdx1 = 5 ;
+				rowIdx2 = 5 ;
+				rowIdx3 = 5 ;
+				rowIdx4 = 5 ;
+				rowIdx5 = 5 ;
+				rowIdx6 = 5 ;
+				arrow1 = document.getElementById("arrow1") ;
+				arrow2 = document.getElementById("arrow2") ;
+				arrow3 = document.getElementById("arrow3") ;
+				arrow4 = document.getElementById("arrow4") ;
+				arrow5 = document.getElementById("arrow5") ;
+				arrow6 = document.getElementById("arrow6") ;
+				arrow7 = document.getElementById("arrow7") ;
+				gameGrid = new Array() ;
+				for(var i = 0 ; i < 7 ; i++)
+				{
+					//column
+					gameGrid[i] = new Array() ;
+					for(var a = 0 ; a < 6 ; a++)
+					{
+						//row
+						gameGrid[i][a] = "blank.png" ;
+					}
+				}
+				imageGrid = new Array() ;
+				for(var b = 0 ; b < 42 ; b++)
+				{
+					imageGrid[b] = document.getElementById(b) ;
+				}
+				display() ;
+			}
+			function display()
+			{
+				var a = 0 ;
+				for(var x = 0 ; x < 7 ; x++)
+				{
+					
+					imageGrid[a].src = gameGrid[x][0] ;
+					a++ ;
+				}
+				for(var x = 0 ; x < 7 ; x++)
+				{
+					//var a = 7 ;
+					imageGrid[a].src = gameGrid[x][1] ;
+					a++ ;
+				}
+				for(var x = 0 ; x < 7 ; x++)
+				{
+					//var a = 14 ;
+					imageGrid[a].src = gameGrid[x][2] ;
+					a++ ;
+				}
+				for(var x = 0 ; x < 7 ; x++)
+				{
+					//var a = 21 ;
+					imageGrid[a].src = gameGrid[x][3] ;
+					a++ ;
+				}
+				for(var x = 0 ; x < 7 ; x++)
+				{
+					//var a = 28 ;
+					imageGrid[a].src = gameGrid[x][4] ;
+					a++ ;
+				}
+				for(var x = 0 ; x < 7 ; x++)
+				{
+					//var a = 35 ;
+					imageGrid[a].src = gameGrid[x][5] ;
+					a++ ;
+				}
+				if(turn > 1)
+					turn = 0 ;
+				if(theWin == WIN && COLOR == RED)
+					alert("Red Player Wins!") ;
+				if(theWin == WIN && COLOR == BLACK)
+					alert("Black Player Wins!") ;
+				
+			}
+			function placeChip(column)
+			{
+				if(theWin == WIN)
+					return ;
+				if(turn == 0)
+					COLOR = RED ;
+				if(turn == 1)
+					COLOR = BLACK ;
+				if(column == 0)
+				{
+					rowIdx = rowIdx0 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx0-- ;
+				}
+				if(column == 1)
+				{
+					rowIdx = rowIdx1 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx1-- ;
+				}
+				if(column == 2)
+				{
+					rowIdx = rowIdx2 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx2-- ;
+				}
+				if(column == 3)
+				{
+					rowIdx = rowIdx3 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx3-- ;
+				}
+				if(column == 4)
+				{
+					rowIdx = rowIdx4 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx4-- ;
+				}
+				if(column == 5)
+				{
+					rowIdx = rowIdx5 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx5-- ;
+				}
+				if(column == 6)
+				{
+					rowIdx = rowIdx6 ;
+					if(rowIdx < 0)
+						return ;
+					gameGrid[column][rowIdx] = COLOR ;
+					rowIdx6-- ;
+				}
+				turn++ ;
+				checkWin(column, rowIdx, COLOR) ;
+				display() ;
+			}
+			
+			
+			//function checkDiagonal1(column, rowIdx, COLOR)
+			
+			function checkDiagonal11(column, rowIdx, COLOR)
+			{
+				if(column < 0 || column > 3)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx+1] == COLOR && gameGrid[column+2][rowIdx+2] == COLOR && gameGrid[column+3][rowIdx+3] == COLOR)
+					theWin = WIN ;
+			}
+			function checkDiagonal12(column, rowIdx, COLOR)
+			{
+				if(column < 3 || rowIdx < 2)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column-1][rowIdx-1] == COLOR && gameGrid[column-2][rowIdx-2] == COLOR && gameGrid[column-3][rowIdx-3] == COLOR)
+					theWin = WIN ;
+			}
+			function checkDiagonal13(column, rowIdx, COLOR)
+			{
+				if(column < 1 || column > 4 || rowIdx > 4)
+					return ;
+				if(gameGrid[column-1][rowIdx-1] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx+1] == COLOR && gameGrid[column+2][rowIdx+2] == COLOR)
+					theWin = WIN ;
+			}
+			function checkDiagonal14(column, rowIdx, COLOR)
+			{
+				if(column < 2 || column > 5 || rowIdx < 3)
+					return ;
+				if(gameGrid[column-2][rowIdx-2] == COLOR && gameGrid[column-1][rowIdx-1] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx+1] == COLOR)
+					theWin = WIN ;
+			}
+			
+			//function checkDiagonal2(column, rowIdx, COLOR)
+			
+			function checkDiagonal21(column, rowIdx, COLOR)
+			{
+				if(column < 3)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column-1][rowIdx+1] == COLOR && gameGrid[column-2][rowIdx+2] == COLOR && gameGrid[column-3][rowIdx+3] == COLOR)
+					theWin = WIN ;
+			}
+			function checkDiagonal22(column, rowIdx, COLOR)
+			{
+				if(rowIdx < 2 || column < 0 || column > 3)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx-1] == COLOR && gameGrid[column+2][rowIdx-2] == COLOR && gameGrid[column+3][rowIdx-3] == COLOR)
+					theWin = WIN ;
+			}
+			function checkDiagonal23(column, rowIdx, COLOR)
+			{
+				if(rowIdx > 4 || column < 2 || column > 5)
+					return ;
+				if(gameGrid[column+1][rowIdx-1] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column-1][rowIdx+1] == COLOR && gameGrid[column-2][rowIdx+2] == COLOR)
+					theWin = WIN ;
+			}
+			function checkDiagonal24(column, rowIdx, COLOR)
+			{
+				if(rowIdx < 3 || column < 1 || column > 4)
+					return ;
+				if(gameGrid[column+2][rowIdx-2] == COLOR && gameGrid[column+1][rowIdx-1] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column-1][rowIdx+1] == COLOR)
+					theWin = WIN ;
+			}
+			
+			
+			
+			//function checkColumns(column, rowIdx, COLOR)
+			
+			function checkColumns1(column, rowIdx, COLOR)
+			{
+				if(column < 3)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column-1][rowIdx] == COLOR && gameGrid[column-2][rowIdx] == COLOR && gameGrid[column-3][rowIdx] == COLOR)
+					theWin = WIN ;
+			}
+			function checkColumns2(column, rowIdx, COLOR)
+			{
+				if(column < 2 || column > 5)
+					return ;
+				if(gameGrid[column-2][rowIdx] == COLOR && gameGrid[column-1][rowIdx] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx] == COLOR)
+					theWin = WIN ;
+			}
+			function checkColumns3(column, rowIdx, COLOR)
+			{
+				if(column < 1 || column > 4)
+					return ;
+				if(gameGrid[column-1][rowIdx] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx] == COLOR && gameGrid[column+2][rowIdx] == COLOR)
+					theWin = WIN ;
+			}
+			function checkColumns4(column, rowIdx, COLOR)
+			{
+				if(column < 0 || column > 3)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column+1][rowIdx] == COLOR && gameGrid[column+2][rowIdx] == COLOR && gameGrid[column+3][rowIdx] == COLOR)
+					theWin = WIN ;
+			}
+			
+			//function checkRows(column, rowIdx, COLOR)
+			
+			function checkRows1(column, rowIdx, COLOR)
+			{
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column][rowIdx+1] == COLOR && gameGrid[column][rowIdx+2] == COLOR && gameGrid[column][rowIdx+3] == COLOR)
+					theWin = WIN ;
+			}
+			function checkRows2(column, rowIdx, COLOR)
+			{
+				if(rowIdx > 4)
+					return ;
+				if(gameGrid[column][rowIdx-1] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column][rowIdx+1] == COLOR && gameGrid[column][rowIdx+2] == COLOR)
+					theWin = WIN ;
+			}
+			function checkRows3(column, rowIdx, COLOR)
+			{
+				if(rowIdx > 3)
+					return ;
+				if(gameGrid[column][rowIdx-2] == COLOR && gameGrid[column][rowIdx-1] == COLOR && gameGrid[column][rowIdx] == COLOR && gameGrid[column][rowIdx+1] == COLOR)
+					theWin = WIN ;
+			}
+			function checkRows4(column, rowIdx, COLOR)
+			{
+				if(rowIdx > 2)
+					return ;
+				if(gameGrid[column][rowIdx] == COLOR && gameGrid[column][rowIdx-1] == COLOR && gameGrid[column][rowIdx-2] == COLOR && gameGrid[column][rowIdx-3] == COLOR)
+					theWin = WIN ;
+			}
+			
+			function checkWin(column, rowIdx, COLOR)
+			{
+				checkRows1(column, rowIdx, COLOR) ;
+				checkRows2(column, rowIdx, COLOR) ;
+				checkRows3(column, rowIdx, COLOR) ;
+				checkRows4(column, rowIdx, COLOR) ;
+				checkColumns1(column, rowIdx, COLOR) ;
+				checkColumns2(column, rowIdx, COLOR) ;
+				checkColumns3(column, rowIdx, COLOR) ;
+				checkColumns4(column, rowIdx, COLOR) ;
+				checkDiagonal11(column, rowIdx, COLOR) ;
+				checkDiagonal12(column, rowIdx, COLOR) ;
+				checkDiagonal13(column, rowIdx, COLOR) ;
+				checkDiagonal14(column, rowIdx, COLOR) ;
+				checkDiagonal21(column, rowIdx, COLOR) ;
+				checkDiagonal22(column, rowIdx, COLOR) ;
+				checkDiagonal23(column, rowIdx, COLOR) ;
+				checkDiagonal24(column, rowIdx, COLOR) ;
+				
+				
+			}
+		</script>
+	</head>
+	<body onload = "induction() ;">
+		<img id = "background" src = "wood-background.jpg" />
+		<table>
+			<tr>
+				<td><img id = "arrow1" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(0) ; clickArrows(this) ;" /></td>
+				<td><img id = "arrow2" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(1) ; clickArrows(this) ;" /></td>
+				<td><img id = "arrow3" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(2) ; clickArrows(this) ;" /></td>
+				<td><img id = "arrow4" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(3) ; clickArrows(this) ;" /></td>
+				<td><img id = "arrow5" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(4) ; clickArrows(this) ;" /></td>
+				<td><img id = "arrow6" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(5) ; clickArrows(this) ;" /></td>
+				<td><img id = "arrow7" src = "arrow-line.png" onmouseover = "hoverArrows(this) ;" onmouseleave = "offArrows(this) ;" onclick = "placeChip(6) ; clickArrows(this) ;" /></td>
+			</tr>
+			<tr>
+				<td class = "board"><img id = "0" /></td>
+				<td class = "board"><img id = "1" /></td>
+				<td class = "board"><img id = "2" /></td>
+				<td class = "board"><img id = "3" /></td>
+				<td class = "board"><img id = "4" /></td>
+				<td class = "board"><img id = "5" /></td>
+				<td class = "board"><img id = "6" /></td>
+			</tr>
+			<tr>
+				<td class = "board"><img id = "7" /></td>
+				<td class = "board"><img id = "8" /></td>
+				<td class = "board"><img id = "9" /></td>
+				<td class = "board"><img id = "10" /></td>
+				<td class = "board"><img id = "11" /></td>
+				<td class = "board"><img id = "12" /></td>
+				<td class = "board"><img id = "13" /></td>
+			</tr>
+			<tr>
+				<td class = "board"><img id = "14" /></td>
+				<td class = "board"><img id = "15" /></td>
+				<td class = "board"><img id = "16" /></td>
+				<td class = "board"><img id = "17" /></td>
+				<td class = "board"><img id = "18" /></td>
+				<td class = "board"><img id = "19" /></td>
+				<td class = "board"><img id = "20" /></td>
+			</tr>
+			<tr>
+				<td class = "board"><img id = "21" /></td>
+				<td class = "board"><img id = "22" /></td>
+				<td class = "board"><img id = "23" /></td>
+				<td class = "board"><img id = "24" /></td>
+				<td class = "board"><img id = "25" /></td>
+				<td class = "board"><img id = "26" /></td>
+				<td class = "board"><img id = "27" /></td>
+			</tr>
+			<tr>
+				<td class = "board"><img id = "28" /></td>
+				<td class = "board"><img id = "29" /></td>
+				<td class = "board"><img id = "30" /></td>
+				<td class = "board"><img id = "31" /></td>
+				<td class = "board"><img id = "32" /></td>
+				<td class = "board"><img id = "33" /></td>
+				<td class = "board"><img id = "34" /></td>
+			</tr>
+			<tr>
+				<td class = "board"><img id = "35" /></td>
+				<td class = "board"><img id = "36" /></td>
+				<td class = "board"><img id = "37" /></td>
+				<td class = "board"><img id = "38" /></td>
+				<td class = "board"><img id = "39" /></td>
+				<td class = "board"><img id = "40" /></td>
+				<td class = "board"><img id = "41" /></td>
+			</tr>
+		</table>
+		<br />
+		<span><button onclick = "induction() ;">RESET GAME</button></span>
+	</body>
+</html>
